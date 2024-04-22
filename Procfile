@@ -1,2 +1,2 @@
-web: gunicorn StockEvaluator.__main__:App.app
+web: gunicorn StockEvaluator.AppServer:App
 FLASK_ENV = production
