@@ -5,23 +5,24 @@ import os
 import json
 
 def LoadData(ticker):
-    # url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol='+ticker+'&apikey=HVAQWSZ3LHU7XOA0'
-    url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol='+ticker+'&apikey=ACG8VVLICHJIZ6O0'
+
+    url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol='+ticker+'&apikey=HVAQWSZ3LHU7XOA0'
+    #url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol='+ticker+'&apikey=ACG8VVLICHJIZ6O0'
     ## this is from alphavantage.co website, needing a special apikey to get it work
     ## NOTE: this free access only allows 25 request per day. otherwise, it will return error. It tracks IP address
 
 #===============================================
-  #  dict_req = requests.get(url).json()
+    dict_req = requests.get(url).json()
     ## retrieve stock data (daily data for this wk3 work)
 #===================================================================
 #=========================================================================
 #   Below is for the test purpose when the 25 requests limit has been reached
 
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    data_file_path = os.path.join(script_dir, 'data.json')
+    # script_dir = os.path.dirname(os.path.abspath(__file__))
+    # data_file_path = os.path.join(script_dir, 'data.json')
 
-    with open(data_file_path, 'r') as infile:
-        dict_req = json.load(infile)
+    # with open(data_file_path, 'r') as infile:
+    #     dict_req = json.load(infile)
 #====================================================================
 
     ## handling errors from API or ticker
