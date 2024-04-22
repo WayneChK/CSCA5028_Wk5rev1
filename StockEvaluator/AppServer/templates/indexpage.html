@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Welcome 
+    </title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>Welcome to the Stock Dashboard</h1>
+    <br>
+    <form id="data-form" action = '/endpoint_data' method="POST">
+        <label for = "userinput">Your Ticker (e.g. AAPL, MSFT, NVDA):</label>
+        <input type = 'text', id = "userinput", name = "user_input", placeholder = 'input a stock ticker here'>
+        <br><br>
+        <label for ="timespan">Your Selected Time Period in days(e.g. 60, 90, 120)</label>
+        <input type = 'number', id="timeSpan", name="time_in_days", placeholder="input a time period in days">
+        <br><br>
+        <button type="submit">Submit</button>
+
+    </form>
+
+    <div id="chart-container"></div>
+
+    <script>
+        const form = document.getElementById('data-form');
+        const chartContainer = document.getElementById('chart-container');
+    
+        form.addEventListener('submit', (event) => {
+          event.preventDefault();
+          const sel_ticker = document.getElementById('userinput').value;
+    
+          fetch('/endpoint_data', {
+            method: 'POST',
+            body: JSON.stringify({send_ticker: sel_ticker}),
+            headers: { 'Content-Type': 'application/json' }
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.error) {
+              alert(data.error); // Handle errors 
+              // NOTE: the key "error" is defined in the back end error handling block (read App.py and getdata.py)
+            } else {
+              const plotData = JSON.parse(data.plot);
+              Plotly.newPlot(chartContainer, plotData);
+            }
+          })
+          .catch(error => console.error(error)); // Handle other errors
+        });
+      </script>
+
+   
+</body>
+</html>
