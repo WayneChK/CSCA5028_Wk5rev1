@@ -23,7 +23,6 @@ else:
 os.makedirs(db_folder, exist_ok=True)
 app.config['SQLALCHEMY_DATABASE_URI']=f'sqlite:///{db_folder}/Stock.sqlite3'
 
-print(f"App.py env var {os.environ['FLASK_ENV']}")
 # link the app configuration with sql db
 sqlite_db.db.init_app(app)
 
