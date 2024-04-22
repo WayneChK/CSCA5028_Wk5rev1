@@ -1,2 +1,2 @@
-web: gunicorn -b 0.0.0.0:$PORT StockEvaluator.__main__:App.app
+web: python -m StockEvaluator
 FLASK_ENV = production
